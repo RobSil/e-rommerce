@@ -1,0 +1,15 @@
+server:
+  port: 9081
+
+spring:
+  data:
+    mongodb:
+      database: e-rommerce
+
+    redis:
+      host: localhost
+      port: 6379
+
+  web:
+    locale: en_EN
+    locale-resolver: fixed
