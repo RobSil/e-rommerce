@@ -1,4 +1,4 @@
-package com.robsil.erommerce.model.category;
+package com.robsil.erommerce.model.product;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
@@ -9,11 +9,11 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class CategoryCreateRequest {
-
-    private String parentId;
+public class ProductQuantityRequest {
 
     @NotEmpty
-    private String title;
+    private String productId;
+
+    private int quantity;
 
 }

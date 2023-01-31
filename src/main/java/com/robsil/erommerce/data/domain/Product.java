@@ -39,15 +39,19 @@ public class Product {
 
     private String name;
 
+    @Indexed(unique = true)
     private String sku;
 
     private BigDecimal price;
 
     private int quantity;
 
+    @Indexed
     private ProductStatus status;
 
     private String groupId;
+
+    private boolean isActive;
 
 
     @Override
@@ -55,11 +59,11 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return quantity == product.quantity && Objects.equals(id, product.id) && Objects.equals(categoryId, product.categoryId) && Objects.equals(name, product.name) && Objects.equals(sku, product.sku) && Objects.equals(price, product.price) && status == product.status && Objects.equals(groupId, product.groupId);
+        return quantity == product.quantity && isActive == product.isActive && Objects.equals(id, product.id) && Objects.equals(categoryId, product.categoryId) && Objects.equals(name, product.name) && Objects.equals(sku, product.sku) && Objects.equals(price, product.price) && status == product.status && Objects.equals(groupId, product.groupId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, categoryId, name, sku, price, quantity, status, groupId);
+        return Objects.hash(id, categoryId, name, sku, price, quantity, status, groupId, isActive);
     }
 }

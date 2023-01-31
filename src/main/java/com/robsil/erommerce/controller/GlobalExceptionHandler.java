@@ -20,17 +20,17 @@ public class GlobalExceptionHandler {
     private ObjectMapper objectMapper;
 
     @ExceptionHandler(EntityNotFoundException.class)
-    ResponseEntity<String> onEntityNotFoundException(EntityNotFoundException e) {
+    public ResponseEntity<String> onEntityNotFoundException(EntityNotFoundException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(HttpConflictException.class)
-    ResponseEntity<String> onHttpConflictException(HttpConflictException e) {
+    public ResponseEntity<String> onHttpConflictException(HttpConflictException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    ResponseEntity<String> onMethodArgumentNotValidException(MethodArgumentNotValidException e) throws JsonProcessingException {
+    public ResponseEntity<String> onMethodArgumentNotValidException(MethodArgumentNotValidException e) throws JsonProcessingException {
         var response = new ValidationErrorResponse();
 
         e.getBindingResult().getFieldErrors().forEach(error -> response.getViolations().add(new Violation(error.getField(), error.getDefaultMessage())));

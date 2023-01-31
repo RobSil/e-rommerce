@@ -9,11 +9,10 @@ import java.util.List;
 public interface CategoryService {
 
     Category findById(String id);
-
     List<Category> findAll();
-
+    List<Category> findAllByParentId(String parentId);
+    List<Category> getAllRoots();
     Category create(CategoryCreateRequest request);
-
     Category save(CategorySaveRequest request);
 
 }

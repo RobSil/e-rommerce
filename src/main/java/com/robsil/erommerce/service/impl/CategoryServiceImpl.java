@@ -38,6 +38,16 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public List<Category> findAllByParentId(String parentId) {
+        return categoryRepository.findAllByParentId(parentId);
+    }
+
+    @Override
+    public List<Category> getAllRoots() {
+        return findAllByParentId(null);
+    }
+
+    @Override
     @Transactional
     public Category create(CategoryCreateRequest request) {
 
