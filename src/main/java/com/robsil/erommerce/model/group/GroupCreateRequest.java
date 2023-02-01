@@ -1,4 +1,4 @@
-package com.robsil.erommerce.model.category;
+package com.robsil.erommerce.model.group;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
@@ -7,14 +7,12 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class CategorySaveRequest {
-
-    @NotEmpty
-    private String id;
-
-    private String parentId;
+public class GroupCreateRequest {
 
     @NotEmpty
     private String title;
+
+    @NotEmpty
+    private String name;
 
 }

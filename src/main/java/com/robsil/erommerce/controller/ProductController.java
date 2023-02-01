@@ -1,13 +1,11 @@
 package com.robsil.erommerce.controller;
 
-import com.robsil.erommerce.model.product.ProductCreateRequest;
-import com.robsil.erommerce.model.product.ProductDto;
-import com.robsil.erommerce.model.product.ProductQuantityRequest;
-import com.robsil.erommerce.model.product.ProductSaveRequest;
+import com.robsil.erommerce.model.product.*;
 import com.robsil.erommerce.service.ProductService;
 import com.robsil.erommerce.service.dtoMapper.ProductDtoMapper;
 import com.robsil.erommerce.service.facade.ProductFacadeService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +19,17 @@ public class ProductController {
     private final ProductFacadeService productFacadeService;
     private final ProductService productService;
     private final ProductDtoMapper productDtoMapper;
+
+    @GetMapping("/check-sku")
+    public ProductCheckSkuResponse checkSku(@RequestParam @NotEmpty String sku) {
+        var product = productService.findBySku(sku);
+
+        if (product == null) {
+            return new ProductCheckSkuResponse(false, null);
+        }
+
+        return new ProductCheckSkuResponse(true, productDtoMapper.apply(product));
+    }
 
     @PostMapping
     public ResponseEntity<ProductDto> create(@RequestBody @Valid ProductCreateRequest req) {

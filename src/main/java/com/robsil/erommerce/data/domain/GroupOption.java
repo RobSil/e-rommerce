@@ -1,5 +1,6 @@
 package com.robsil.erommerce.data.domain;
 
+import com.robsil.erommerce.model.ProductStatus;
 import lombok.*;
 import org.springframework.data.annotation.*;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -39,6 +40,11 @@ public class GroupOption {
     private String productId;
 
     private String value;
+
+    @Indexed
+    private boolean isActive;
+
+    private ProductStatus status;
 
     @Override
     public boolean equals(Object o) {

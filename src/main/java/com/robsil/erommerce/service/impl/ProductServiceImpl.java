@@ -5,6 +5,7 @@ import com.robsil.erommerce.data.domain.Product;
 import com.robsil.erommerce.data.repository.ProductRepository;
 import com.robsil.erommerce.model.ProductStatus;
 import com.robsil.erommerce.model.exception.EntityNotFoundException;
+import com.robsil.erommerce.model.product.ProductCheckSkuResponse;
 import com.robsil.erommerce.model.product.ProductCreateRequest;
 import com.robsil.erommerce.model.product.ProductSaveRequest;
 import com.robsil.erommerce.service.ProductService;
@@ -30,6 +31,14 @@ public class ProductServiceImpl implements ProductService {
     public Product findById(String productId) {
         return productRepository.findById(productId).orElseThrow(() -> {
             log.info("findById: can't find product by ID: %s".formatted(productId));
+            return new EntityNotFoundException("Product not found.");
+        });
+    }
+
+    @Override
+    public Product findBySku(String sku) {
+        return productRepository.findBySku(sku).orElseThrow(() -> {
+            log.info("findById: can't find product by SKU: %s".formatted(sku));
             return new EntityNotFoundException("Product not found.");
         });
     }

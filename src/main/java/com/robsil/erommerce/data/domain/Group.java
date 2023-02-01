@@ -2,6 +2,7 @@ package com.robsil.erommerce.data.domain;
 
 import lombok.*;
 import org.springframework.data.annotation.*;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.security.Principal;
@@ -31,8 +32,11 @@ public class Group {
     @Version
     private long version;
 
+//    more representing thing
     private String title;
 
+//    minimized string for storage
+    @Indexed(unique = true)
     private String name;
 
     @Override
