@@ -9,6 +9,7 @@ import com.robsil.erommerce.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Log4j2
@@ -19,6 +20,7 @@ public class GroupOptionFacadeService {
     private final ProductService productService;
     private final GroupService groupService;
 
+    @Transactional
     public GroupOption create(GroupOptionCreateRequest req) {
 
         var product = productService.findBySku(req.getSku());
@@ -37,6 +39,7 @@ public class GroupOptionFacadeService {
         return go;
     }
 
+    @Transactional
     public GroupOption save(GroupOptionSaveRequest req) {
 
         var go = groupOptionService.findById(req.getGroupId());

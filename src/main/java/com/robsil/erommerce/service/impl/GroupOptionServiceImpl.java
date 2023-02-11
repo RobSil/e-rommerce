@@ -6,6 +6,7 @@ import com.robsil.erommerce.service.GroupOptionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class GroupOptionServiceImpl implements GroupOptionService {
     }
 
     @Override
+    @Transactional
     public GroupOption saveEntity(GroupOption groupOption) {
         return null;
     }
@@ -32,11 +34,13 @@ public class GroupOptionServiceImpl implements GroupOptionService {
     }
 
     @Override
+    @Transactional
     public void deleteById(String id) {
         groupOptionRepository.deleteById(id);
     }
 
     @Override
+    @Transactional
     public void deleteAllByIds(Iterable<String> ids) {
         groupOptionRepository.deleteAllById(ids);
     }

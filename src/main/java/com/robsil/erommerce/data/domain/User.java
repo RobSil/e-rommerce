@@ -1,5 +1,6 @@
 package com.robsil.erommerce.data.domain;
 
+import com.robsil.erommerce.model.ERole;
 import com.robsil.erommerce.model.Gender;
 import lombok.*;
 import org.springframework.data.annotation.*;
@@ -53,6 +54,10 @@ public class User {
     private boolean isEnabled;
 
     private List<Role> roles = new ArrayList<>();
+
+    public boolean isAdmin() {
+        return this.roles.stream().anyMatch(role -> role.getName().equals(ERole.ADMIN) || role.getName().equals(ERole.SUPERADMIN));
+    }
 
     @Override
     public boolean equals(Object o) {

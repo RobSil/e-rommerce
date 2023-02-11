@@ -2,10 +2,7 @@ package com.robsil.erommerce.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.robsil.erommerce.model.exception.EntityNotFoundException;
-import com.robsil.erommerce.model.exception.HttpConflictException;
-import com.robsil.erommerce.model.exception.ValidationErrorResponse;
-import com.robsil.erommerce.model.exception.Violation;
+import com.robsil.erommerce.model.exception.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +24,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpConflictException.class)
     public ResponseEntity<String> onHttpConflictException(HttpConflictException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<String> onForbiddenException(ForbiddenException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

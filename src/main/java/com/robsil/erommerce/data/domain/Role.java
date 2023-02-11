@@ -1,5 +1,6 @@
 package com.robsil.erommerce.data.domain;
 
+import com.robsil.erommerce.model.ERole;
 import lombok.*;
 import org.springframework.data.annotation.*;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -33,6 +34,8 @@ public class Role {
     private long version;
 
     @Indexed(unique = true)
+    private ERole name;
+
     private String title;
 
     @Override
