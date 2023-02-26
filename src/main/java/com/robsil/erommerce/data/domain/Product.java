@@ -1,6 +1,5 @@
 package com.robsil.erommerce.data.domain;
 
-import com.robsil.erommerce.model.ERole;
 import com.robsil.erommerce.model.ProductStatus;
 import io.hypersistence.utils.hibernate.type.json.JsonBinaryType;
 import jakarta.persistence.*;
@@ -44,9 +43,6 @@ public class Product extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private ProductStatus status;
 
-//    @Column
-//    private Group group;
-
     @Column(name = "is_active")
     private boolean isActive;
 
@@ -60,7 +56,7 @@ public class Product extends BaseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return quantity == product.quantity && isActive == product.isActive && Objects.equals(super.getId(), product.getId()) && Objects.equals(name, product.name) && Objects.equals(sku, product.sku) && Objects.equals(price, product.price) && status == product.status;
+        return Objects.equals(quantity, product.quantity) && isActive == product.isActive && Objects.equals(super.getId(), product.getId()) && Objects.equals(name, product.name) && Objects.equals(sku, product.sku) && Objects.equals(price, product.price) && status == product.status;
     }
 
     @Override

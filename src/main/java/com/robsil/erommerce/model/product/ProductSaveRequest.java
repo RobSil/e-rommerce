@@ -35,8 +35,6 @@ public class ProductSaveRequest {
     @NotNull
     private ProductStatus status;
 
-    private String groupId;
-
     private boolean isActive;
 
 }

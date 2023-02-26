@@ -32,8 +32,6 @@ public class ProductCreateRequest {
     @NotNull
     private ProductStatus status;
 
-    private Long groupId;
-
     private boolean isActive;
 
 }
