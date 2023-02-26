@@ -5,6 +5,7 @@ import com.robsil.erommerce.data.repository.CategoryRepository;
 import com.robsil.erommerce.model.category.CategoryCreateRequest;
 import com.robsil.erommerce.model.category.CategorySaveRequest;
 import com.robsil.erommerce.model.exception.EntityNotFoundException;
+import com.robsil.erommerce.model.exception.HttpConflictException;
 import com.robsil.erommerce.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -21,11 +22,22 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
 
     public Category saveEntity(Category category) {
+        // we have to verify, that category.id doesn't equal any of parent ids.
+        Category parent = category.getParent();
+        while (parent != null) {
+            if (parent.getId().equals(category.getId())) {
+                throw new HttpConflictException("Unable to save, there is category root recursion. CategoryID: %s, ParentID: %s"
+                                .formatted(category.getId().toString(), parent.getId().toString()));
+            }
+
+            parent = parent.getParent();
+        }
+
         return categoryRepository.save(category);
     }
 
     @Override
-    public Category findById(String id) {
+    public Category findById(Long id) {
         return categoryRepository.findById(id).orElseThrow(() -> {
             log.info("findById: category can't be found. ID: %s".formatted(id));
             return new EntityNotFoundException("Category not found");
@@ -38,12 +50,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> findAllByParentId(String parentId) {
+    public List<Category> findAllByParentId(Long parentId) {
         return categoryRepository.findAllByParentId(parentId);
     }
 
     @Override
-    public List<Category> getAllRoots() {
+    public List<Category> findAllRoots() {
         return findAllByParentId(null);
     }
 
@@ -51,9 +63,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     public Category create(CategoryCreateRequest request) {
 
+        var parent = findById(request.getParentId());
+
         var category = Category.builder()
                 .title(request.getTitle())
-                .parentId(request.getParentId())
+                .parent(parent)
                 .build();
 
         category = saveEntity(category);
@@ -65,9 +79,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     public Category save(CategorySaveRequest request) {
 
+        var parent = findById(request.getParentId());
+
         var category = findById(request.getId());
 
-        category.setParentId(request.getParentId());
+        category.setParent(parent);
         category.setTitle(request.getTitle());
 
         category = saveEntity(category);

@@ -34,12 +34,12 @@ public class CategoryController {
     // TODO: 31.01.2023 make pageable
     @GetMapping("/roots")
     public ResponseEntity<List<CategoryDto>> getAllRoots() {
-        return new ResponseEntity<>(categoryService.getAllRoots().stream().map(categoryDtoMapper).toList(), HttpStatus.OK);
+        return new ResponseEntity<>(categoryService.findAllRoots().stream().map(categoryDtoMapper).toList(), HttpStatus.OK);
     }
 
     // TODO: 31.01.2023 make pageable
     @GetMapping("/{categoryId}/products")
-    public ResponseEntity<List<ProductDto>> getAllProductsByCategoryId(@PathVariable String categoryId) {
+    public ResponseEntity<List<ProductDto>> getAllProductsByCategoryId(@PathVariable Long categoryId) {
         return new ResponseEntity<>(productService.findAllByCategoryId(categoryId).stream().map(productDtoMapper).toList(), HttpStatus.OK);
     }
 

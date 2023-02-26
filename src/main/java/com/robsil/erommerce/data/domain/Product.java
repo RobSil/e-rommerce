@@ -1,57 +1,58 @@
 package com.robsil.erommerce.data.domain;
 
+import com.robsil.erommerce.model.ERole;
 import com.robsil.erommerce.model.ProductStatus;
+import io.hypersistence.utils.hibernate.type.json.JsonBinaryType;
+import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.*;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Type;
 
 import java.math.BigDecimal;
-import java.security.Principal;
-import java.time.LocalDateTime;
-import java.util.Objects;
+import java.util.*;
 
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "Product")
-public class Product {
+@Entity
+@Table(name = "products")
+public class Product extends BaseEntity {
 
-    @Id
-    private String id;
+//    @Indexed
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private Category category;
 
-    @CreatedDate
-    private LocalDateTime createdDate;
-
-    @LastModifiedDate
-    private LocalDateTime lastModifiedDate;
-
-    @CreatedBy
-    private Principal createdBy;
-
-    @Version
-    private long version;
-
-    @Indexed
-    private String categoryId;
-
+    @Column
     private String name;
 
-    @Indexed(unique = true)
+    @Column
     private String sku;
 
+    @Column
     private BigDecimal price;
 
-    private int quantity;
+    @Column
+    private BigDecimal quantity;
 
-    @Indexed
+    @Column(name = "measure_unit")
+    private String measureUnit;
+
+    @Column
+    @Enumerated(EnumType.STRING)
     private ProductStatus status;
 
-    private String groupId;
+//    @Column
+//    private Group group;
 
+    @Column(name = "is_active")
     private boolean isActive;
+
+    @Type(JsonBinaryType.class)
+    @Column(columnDefinition = "jsonb")
+    private Map<String, Object> properties = new HashMap<>();
 
 
     @Override
@@ -59,11 +60,11 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return quantity == product.quantity && isActive == product.isActive && Objects.equals(id, product.id) && Objects.equals(categoryId, product.categoryId) && Objects.equals(name, product.name) && Objects.equals(sku, product.sku) && Objects.equals(price, product.price) && status == product.status && Objects.equals(groupId, product.groupId);
+        return quantity == product.quantity && isActive == product.isActive && Objects.equals(super.getId(), product.getId()) && Objects.equals(name, product.name) && Objects.equals(sku, product.sku) && Objects.equals(price, product.price) && status == product.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, categoryId, name, sku, price, quantity, status, groupId, isActive);
+        return Objects.hash(super.getId(), name, sku, price, quantity, status, isActive);
     }
 }

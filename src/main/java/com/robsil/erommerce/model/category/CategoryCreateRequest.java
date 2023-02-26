@@ -9,7 +9,7 @@ import lombok.*;
 @EqualsAndHashCode
 public class CategoryCreateRequest {
 
-    private String parentId;
+    private Long parentId;
 
     @NotEmpty
     private String title;

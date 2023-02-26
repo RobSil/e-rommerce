@@ -14,10 +14,10 @@ import java.math.BigDecimal;
 public class ProductSaveRequest {
 
     @NotEmpty
-    private String id;
+    private Long id;
 
     @NotEmpty
-    private String categoryId;
+    private Long categoryId;
 
     @NotEmpty
     private String name;
@@ -28,7 +28,9 @@ public class ProductSaveRequest {
     @NotNull
     private BigDecimal price;
 
-    private int quantity;
+    private BigDecimal quantity;
+
+    private String measureUnit;
 
     @NotNull
     private ProductStatus status;

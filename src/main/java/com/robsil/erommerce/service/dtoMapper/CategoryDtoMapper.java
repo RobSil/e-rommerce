@@ -22,21 +22,13 @@ public class CategoryDtoMapper implements Function<Category, CategoryDto> {
             throw new IllegalArgumentException("Category can't be null");
         }
 
-        Category parent = null;
-
-        try {
-            if (category.getParentId() != null) {
-                parent = categoryService.findById(category.getParentId());
-            }
-        } catch (EntityNotFoundException ignored) {}
-
         var result = CategoryDto.builder()
                 .id(category.getId())
                 .title(category.getTitle())
                 .parent(null)
                 .build();
 
-        if (parent != null) {
+        if (category.getParent() != null) {
             result.setParent(this.apply(category));
         }
 

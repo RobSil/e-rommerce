@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 public class ProductDto {
 
     @NotEmpty
-    private String id;
+    private Long id;
 
     @NotEmpty
     private CategoryDto category;
@@ -31,12 +31,12 @@ public class ProductDto {
     @NotNull
     private BigDecimal price;
 
-    private int quantity;
+    private BigDecimal quantity;
+
+    private String measureUnit;
 
     @NotNull
     private ProductStatus status;
-
-    private String groupId;
 
     private boolean isActive;
 

@@ -10,7 +10,7 @@ import lombok.*;
 @EqualsAndHashCode
 public class CategoryDto {
 
-    private String id;
+    private Long id;
 
     private CategoryDto parent;
 

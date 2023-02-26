@@ -10,9 +10,9 @@ import lombok.*;
 public class CategorySaveRequest {
 
     @NotEmpty
-    private String id;
+    private Long id;
 
-    private String parentId;
+    private Long parentId;
 
     @NotEmpty
     private String title;

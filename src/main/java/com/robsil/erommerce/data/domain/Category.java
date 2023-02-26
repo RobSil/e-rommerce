@@ -1,43 +1,30 @@
 package com.robsil.erommerce.data.domain;
 
+import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.*;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.experimental.SuperBuilder;
 
-import java.security.Principal;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "Category")
-public class Category {
-
-    @Id
-    private String id;
-
-    @CreatedDate
-    private LocalDateTime createdDate;
-
-    @LastModifiedDate
-    private LocalDateTime lastModifiedDate;
-
-    @CreatedBy
-    private Principal createdBy;
-
-    @Version
-    private long version;
+@Entity
+@Table(name = "categories")
+public class Category extends BaseEntity {
 
 //    parent category id
-    private String parentId;
+    @ManyToOne
+    @JoinColumn(name = "parent_id",referencedColumnName = "id")
+    private Category parent;
 
+    @Column
     private String title;
 
     public boolean isRoot() {
-        return parentId == null;
+        return parent == null;
     }
 
     @Override
@@ -45,11 +32,11 @@ public class Category {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Category category = (Category) o;
-        return Objects.equals(id, category.id) && Objects.equals(parentId, category.parentId) && Objects.equals(title, category.title);
+        return Objects.equals(super.getId(), category.getId()) && Objects.equals(parent, category.parent) && Objects.equals(title, category.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, parentId, title);
+        return Objects.hash(super.getId(), parent, title);
     }
 }

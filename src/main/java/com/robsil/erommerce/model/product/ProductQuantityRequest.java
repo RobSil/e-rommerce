@@ -3,6 +3,8 @@ package com.robsil.erommerce.model.product;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -10,8 +12,8 @@ import lombok.*;
 public class ProductQuantityRequest {
 
     @NotEmpty
-    private String productId;
+    private Long productId;
 
-    private int quantity;
+    private BigDecimal quantity;
 
 }

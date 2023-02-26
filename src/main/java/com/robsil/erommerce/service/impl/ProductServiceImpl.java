@@ -3,10 +3,8 @@ package com.robsil.erommerce.service.impl;
 import com.robsil.erommerce.data.domain.Category;
 import com.robsil.erommerce.data.domain.Product;
 import com.robsil.erommerce.data.repository.ProductRepository;
-import com.robsil.erommerce.model.ProductStatus;
 import com.robsil.erommerce.model.exception.EntityNotFoundException;
 import com.robsil.erommerce.model.exception.HttpConflictException;
-import com.robsil.erommerce.model.product.ProductCheckSkuResponse;
 import com.robsil.erommerce.model.product.ProductCreateRequest;
 import com.robsil.erommerce.model.product.ProductSaveRequest;
 import com.robsil.erommerce.service.ProductService;
@@ -58,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product findById(String productId) {
+    public Product findById(Long productId) {
         return productRepository.findById(productId).orElseThrow(() -> {
             log.info("findById: can't find product by ID: %s".formatted(productId));
             return new EntityNotFoundException("Product not found.");
@@ -74,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllByCategoryId(String categoryId) {
+    public List<Product> findAllByCategoryId(Long categoryId) {
         return productRepository.findAllByCategoryId(categoryId);
     }
 
@@ -82,13 +80,13 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public Product create(ProductCreateRequest req, Category category) {
         var product = Product.builder()
-                .categoryId(req.getCategoryId())
+                .category(category)
                 .name(req.getName())
                 .sku(req.getSku())
                 .price(req.getPrice())
                 .quantity(req.getQuantity())
+                .measureUnit(req.getMeasureUnit())
                 .status(req.getStatus())
-                .groupId(req.getGroupId())
                 .isActive(req.isActive())
                 .build();
 
@@ -102,13 +100,13 @@ public class ProductServiceImpl implements ProductService {
     public Product save(ProductSaveRequest req, Category category) {
         var product = findById(req.getId());
 
-        product.setCategoryId(req.getCategoryId());
+        product.setCategory(category);
         product.setName(req.getName());
         product.setSku(req.getSku());
         product.setPrice(req.getPrice());
         product.setQuantity(req.getQuantity());
+        product.setMeasureUnit(req.getMeasureUnit());
         product.setStatus(req.getStatus());
-        product.setGroupId(req.getGroupId());
         product.setActive(req.isActive());
 
         product = saveEntity(product);
@@ -118,7 +116,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public Product changeQuantity(String productId, int quantity) {
+    public Product changeQuantity(Long productId, BigDecimal quantity) {
         var product = findById(productId);
 
         product.setQuantity(quantity);

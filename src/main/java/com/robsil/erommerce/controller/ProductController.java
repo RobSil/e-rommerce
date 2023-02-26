@@ -21,14 +21,10 @@ public class ProductController {
     private final ProductDtoMapper productDtoMapper;
 
     @GetMapping("/check-sku")
-    public ProductCheckSkuResponse checkSku(@RequestParam @NotEmpty String sku) {
+    public ResponseEntity<ProductCheckSkuResponse> checkSku(@RequestParam @NotEmpty String sku) {
         var product = productService.findBySku(sku);
 
-        if (product == null) {
-            return new ProductCheckSkuResponse(false, null);
-        }
-
-        return new ProductCheckSkuResponse(true, productDtoMapper.apply(product));
+        return new ResponseEntity<>(new ProductCheckSkuResponse(true, productDtoMapper.apply(product)), HttpStatus.OK);
     }
 
     @PostMapping

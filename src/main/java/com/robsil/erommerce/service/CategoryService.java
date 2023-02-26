@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface CategoryService {
 
-    Category findById(String id);
+    Category findById(Long id);
     List<Category> findAll();
-    List<Category> findAllByParentId(String parentId);
-    List<Category> getAllRoots();
+    List<Category> findAllByParentId(Long parentId);
+    List<Category> findAllRoots();
     Category create(CategoryCreateRequest request);
     Category save(CategorySaveRequest request);
 

@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 public class ProductCreateRequest {
 
     @NotEmpty
-    private String categoryId;
+    private Long categoryId;
 
     @NotEmpty
     private String name;
@@ -25,12 +25,14 @@ public class ProductCreateRequest {
     @NotNull
     private BigDecimal price;
 
-    private int quantity;
+    private BigDecimal quantity;
+
+    private String measureUnit;
 
     @NotNull
     private ProductStatus status;
 
-    private String groupId;
+    private Long groupId;
 
     private boolean isActive;
 
