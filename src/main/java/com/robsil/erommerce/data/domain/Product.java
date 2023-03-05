@@ -46,6 +46,7 @@ public class Product extends BaseEntity {
     @Column(name = "is_active")
     private boolean isActive;
 
+    @Builder.Default
     @Type(JsonBinaryType.class)
     @Column(columnDefinition = "jsonb")
     private Map<String, Object> properties = new HashMap<>();
