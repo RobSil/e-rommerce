@@ -12,6 +12,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,18 +23,25 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
 
     public Category saveEntity(Category category) {
+        recursiveCheckParent(category);
+
+        return categoryRepository.save(category);
+    }
+
+    private void recursiveCheckParent(Category category) {
         // we have to verify, that category.id doesn't equal any of parent ids.
+
+        List<Long> ids = new ArrayList<>();
+
         Category parent = category.getParent();
         while (parent != null) {
             if (parent.getId().equals(category.getId())) {
                 throw new HttpConflictException("Unable to save, there is category root recursion. CategoryID: %s, ParentID: %s"
-                                .formatted(category.getId().toString(), parent.getId().toString()));
+                        .formatted(category.getId().toString(), parent.getId().toString()));
             }
 
             parent = parent.getParent();
         }
-
-        return categoryRepository.save(category);
     }
 
     @Override
@@ -63,7 +71,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     public Category create(CategoryCreateRequest request) {
 
-        var parent = findById(request.getParentId());
+        Category parent = null;
+
+        if (request.getParentId() != null && request.getParentId() > 0L) {
+            parent = findById(request.getParentId());
+        }
 
         var category = Category.builder()
                 .title(request.getTitle())
@@ -79,9 +91,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     public Category save(CategorySaveRequest request) {
 
-        var parent = findById(request.getParentId());
-
         var category = findById(request.getId());
+
+        Category parent = null;
+
+        if (request.getParentId() != null && request.getParentId() > 0L) {
+            parent = findById(request.getParentId());
+        }
 
         category.setParent(parent);
         category.setTitle(request.getTitle());
@@ -89,5 +105,10 @@ public class CategoryServiceImpl implements CategoryService {
         category = saveEntity(category);
 
         return category;
+    }
+
+    @Override
+    public void deleteById(Long categoryId) {
+        categoryRepository.deleteById(categoryId);
     }
 }

@@ -125,4 +125,9 @@ public class ProductServiceImpl implements ProductService {
 
         return product;
     }
+
+    @Override
+    public void deleteAllByCategoryId(Long categoryId) {
+        productRepository.deleteAllByCategoryId(categoryId);
+    }
 }

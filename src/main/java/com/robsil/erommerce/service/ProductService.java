@@ -20,4 +20,6 @@ public interface ProductService {
     // consider more about changing this method
     Product changeQuantity(Long productId, BigDecimal quantity);
 
+    void deleteAllByCategoryId(Long categoryId);
+
 }
