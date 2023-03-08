@@ -42,4 +42,11 @@ public class ProductController {
         return new ResponseEntity<>(productDtoMapper.apply(productService.changeQuantity(req.getProductId(), req.getQuantity())), HttpStatus.OK);
     }
 
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long productId) {
+        productService.deleteById(productId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

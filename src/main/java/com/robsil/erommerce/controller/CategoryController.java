@@ -10,6 +10,9 @@ import com.robsil.erommerce.service.dtoMapper.CategoryDtoMapper;
 import com.robsil.erommerce.service.dtoMapper.ProductDtoMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,10 +40,12 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.findAllRoots().stream().map(categoryDtoMapper).toList(), HttpStatus.OK);
     }
 
-    // TODO: 31.01.2023 make pageable
     @GetMapping("/{categoryId}/products")
-    public ResponseEntity<List<ProductDto>> getAllProductsByCategoryId(@PathVariable Long categoryId) {
-        return new ResponseEntity<>(productService.findAllByCategoryId(categoryId).stream().map(productDtoMapper).toList(), HttpStatus.OK);
+    public ResponseEntity<Page<ProductDto>> getAllProductsByCategoryId(@PathVariable Long categoryId) {
+        var rawResult = productService.findAllByCategoryId(categoryId, PageRequest.of(0, 10));
+        var contentResult = rawResult.getContent().stream().map(productDtoMapper).toList();
+
+        return new ResponseEntity<>(new PageImpl<>(contentResult, rawResult.getPageable(), rawResult.getTotalElements()), HttpStatus.OK);
     }
 
     @PostMapping

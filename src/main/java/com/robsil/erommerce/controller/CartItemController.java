@@ -10,6 +10,7 @@ import com.robsil.erommerce.service.dtoMapper.CartItemDtoMapper;
 import com.robsil.erommerce.service.facade.CartFacadeService;
 import com.robsil.erommerce.service.facade.CartItemFacadeService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,15 +30,22 @@ public class CartItemController {
 
     @PostMapping
     public ResponseEntity<CartItemDto> create(@RequestBody @Valid CartItemCreateRequest req,
-                                              @AuthenticationPrincipal User user) {
-        return new ResponseEntity<>(cartItemDtoMapper.apply(cartFacadeService.addItem(user, req)), HttpStatus.CREATED);
+                                              @AuthenticationPrincipal @NotNull User user) {
+        return new ResponseEntity<>(cartItemDtoMapper.apply(cartItemFacadeService.addItem(user, req)), HttpStatus.CREATED);
     }
 
     @PutMapping("/{cartItemId}/quantity")
     public ResponseEntity<CartItemQuantityChangeResponse> changeQuantity(@RequestBody @Valid CartItemChangeQuantityRequest req,
                                                                          @PathVariable Long cartItemId,
-                                                                         @AuthenticationPrincipal User user) {
+                                                                         @AuthenticationPrincipal @NotNull User user) {
         return new ResponseEntity<>(cartItemFacadeService.changeQuantity(req, cartItemId, user), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{cartItemId}")
+    public ResponseEntity<Void> delete(@PathVariable Long cartItemId,
+                                       @AuthenticationPrincipal @NotNull User user) {
+        cartItemFacadeService.delete(cartItemId, user);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

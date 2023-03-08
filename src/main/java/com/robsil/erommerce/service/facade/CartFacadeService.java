@@ -6,7 +6,6 @@ import com.robsil.erommerce.model.cart.CartDto;
 import com.robsil.erommerce.model.cart.DetailedCartDto;
 import com.robsil.erommerce.model.cartItem.CartItemCreateRequest;
 import com.robsil.erommerce.model.cartItem.MinimizedCartItemDto;
-import com.robsil.erommerce.model.exception.ForbiddenException;
 import com.robsil.erommerce.service.CartItemService;
 import com.robsil.erommerce.service.CartService;
 import com.robsil.erommerce.service.ProductService;
@@ -47,31 +46,10 @@ public class CartFacadeService {
     }
 
     @Transactional
-    public void clearAll(User user) {
+    public void deleteAll(User user) {
         var cart = cartService.findByUserId(user);
 
         cartItemService.deleteAllByCartId(cart.getId());
-    }
-
-    @Transactional
-    public CartItem addItem(User user, CartItemCreateRequest req) {
-        var product = productService.findById(req.getProductId());
-        var cart = cartService.findByUserId(user);
-
-        return cartItemService.create(cart, product, req.getQuantity());
-    }
-
-    @Transactional
-    public void deleteItem(User user, Long cartItemId) {
-        var cart = cartService.findByUserId(user);
-
-        var cartItem = cartItemService.findById(cartItemId);
-
-        if (cartItem.getCart().getId().equals(cart.getId())) {
-            throw new ForbiddenException("Can't delete foreign from cart.");
-        }
-
-        cartItemService.deleteById(cartItem.getId());
     }
 
 }

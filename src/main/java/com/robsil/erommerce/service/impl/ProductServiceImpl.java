@@ -12,6 +12,8 @@ import com.robsil.erommerce.util.StringUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,8 +74,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllByCategoryId(Long categoryId) {
-        return productRepository.findAllByCategoryId(categoryId);
+    public Page<Product> findAllByCategoryId(Long categoryId, Pageable pageable) {
+        return productRepository.findAllByCategoryId(categoryId, pageable);
     }
 
     @Override
@@ -124,6 +126,11 @@ public class ProductServiceImpl implements ProductService {
         product = saveEntity(product);
 
         return product;
+    }
+
+    @Override
+    public void deleteById(Long productId) {
+        productRepository.deleteById(productId);
     }
 
     @Override
