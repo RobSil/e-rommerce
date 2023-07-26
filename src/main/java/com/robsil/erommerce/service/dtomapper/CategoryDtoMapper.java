@@ -1,8 +1,7 @@
-package com.robsil.erommerce.service.dtoMapper;
+package com.robsil.erommerce.service.dtomapper;
 
 import com.robsil.erommerce.data.domain.Category;
 import com.robsil.erommerce.model.category.CategoryDto;
-import com.robsil.erommerce.model.exception.EntityNotFoundException;
 import com.robsil.erommerce.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

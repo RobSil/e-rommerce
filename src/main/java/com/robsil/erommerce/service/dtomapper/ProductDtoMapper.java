@@ -1,4 +1,4 @@
-package com.robsil.erommerce.service.dtoMapper;
+package com.robsil.erommerce.service.dtomapper;
 
 import com.robsil.erommerce.data.domain.Product;
 import com.robsil.erommerce.model.product.ProductDto;

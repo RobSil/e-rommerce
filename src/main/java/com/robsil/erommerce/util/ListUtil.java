@@ -5,6 +5,8 @@ import java.util.function.Predicate;
 
 public class ListUtil {
 
+    private ListUtil() {}
+
     public static <T> boolean contains(List<T> list, Predicate<T> predicate) {
         return list.stream().anyMatch(predicate);
     }

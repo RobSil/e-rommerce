@@ -2,7 +2,7 @@ package com.robsil.erommerce.controller;
 
 import com.robsil.erommerce.model.product.*;
 import com.robsil.erommerce.service.ProductService;
-import com.robsil.erommerce.service.dtoMapper.ProductDtoMapper;
+import com.robsil.erommerce.service.dtomapper.ProductDtoMapper;
 import com.robsil.erommerce.service.facade.ProductFacadeService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;

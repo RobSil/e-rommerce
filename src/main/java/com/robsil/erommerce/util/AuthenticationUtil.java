@@ -8,15 +8,15 @@ import java.security.Principal;
 
 public class AuthenticationUtil {
 
-    public static String getNameFromAuthentication(Authentication authentication) {
-        Object principal = authentication.getPrincipal();
+    private AuthenticationUtil() {}
 
-        if (principal instanceof UserDetails) {
-            return ((UserDetails) principal).getUsername();
+    public static String getNameFromAuthentication(Authentication authentication) {
+        if (authentication.getPrincipal() instanceof UserDetails userDetails) {
+            return userDetails.getUsername();
         }
 
-        if (principal instanceof Principal) {
-            return ((Principal) principal).getName();
+        if (authentication.getPrincipal() instanceof Principal principal) {
+            return principal.getName();
         }
 
         throw new UnauthorizedException("Failed to get name from authentication.");

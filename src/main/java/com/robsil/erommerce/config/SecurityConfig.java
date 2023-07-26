@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.robsil.erommerce.model.exception.EntityNotFoundException;
 import com.robsil.erommerce.model.exception.UnauthorizedException;
 import com.robsil.erommerce.service.UserService;
-import com.robsil.erommerce.service.dtoMapper.UserDtoMapper;
+import com.robsil.erommerce.service.dtomapper.UserDtoMapper;
 import com.robsil.erommerce.util.AuthenticationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,14 +15,9 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.SecurityFilterChain;
-
-import java.util.stream.Collectors;
 
 @Configuration
 @EnableWebSecurity
@@ -51,21 +46,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, UserDetailsService userDetailsService) throws Exception {
         http.csrf().disable();
 
-//        http.authorizeHttpRequests()
-//                .requestMatchers("/**")
-//                .permitAll();
-
         http.userDetailsService(userDetailsService);
         var provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
-
-//        http
-//                .exceptionHandling()
-//                    .authenticationEntryPoint((request, response, authException) -> {
-//                    response.setStatus(HttpStatus.UNAUTHORIZED.value());
-//                    response.getWriter().write(unauthorizedMessage);
-//                    response.getWriter().flush();
-//                });
 
         http
                 .sessionManagement()
@@ -101,11 +84,6 @@ public class SecurityConfig {
                 .invalidateHttpSession(true)
                 .deleteCookies("SESSION", "JSESSIONID")
                 .logoutSuccessHandler(((request, response, authentication) -> response.setStatus(HttpStatus.OK.value())));
-
-//        http
-//                .authorizeHttpRequests()
-//                .anyRequest()
-//                .permitAll();
 
         http
                 .authorizeHttpRequests()

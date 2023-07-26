@@ -31,7 +31,7 @@ public class CartServiceTest {
     public final ArgumentCaptor<Cart> captor = ArgumentCaptor.forClass(Cart.class);
 
     @Test
-    public void findById() {
+    void findById() {
         //given
         var user = new User("rob",
                 "sil",
@@ -57,7 +57,7 @@ public class CartServiceTest {
     }
 
     @Test
-    public void findByIdNotFound() {
+    void findByIdNotFound() {
         //given
         Long id = 1L;
 
@@ -70,7 +70,7 @@ public class CartServiceTest {
     }
 
     @Test
-    public void findByUserId() {
+    void findByUserId() {
         //given
         var user = new User("rob",
                 "sil",
@@ -97,7 +97,7 @@ public class CartServiceTest {
     }
 
     @Test
-    public void findByUserIdCreateDefaultUser() {
+    void findByUserIdCreateDefaultUser() {
         //given
         var user = new User("rob",
                 "sil",

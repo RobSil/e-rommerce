@@ -33,7 +33,7 @@ public class CartItemServiceTest {
     public ArgumentCaptor<CartItem> captor = ArgumentCaptor.forClass(CartItem.class);
 
     @Test
-    public void findById() {
+    void findById() {
         //given
         var user = new User("rob",
                 "sil",
@@ -74,7 +74,7 @@ public class CartItemServiceTest {
     }
 
     @Test
-    public void findByIdNotFound() {
+    void findByIdNotFound() {
         //given
         var id = 1L;
 
@@ -87,7 +87,7 @@ public class CartItemServiceTest {
     }
 
     @Test
-    public void findAllByCartId() {
+    void findAllByCartId() {
         //given
         var user = new User("rob",
                 "sil",
@@ -135,7 +135,7 @@ public class CartItemServiceTest {
     }
 
     @Test
-    public void create() {
+    void create() {
         //given
         var user = new User("rob",
                 "sil",
@@ -179,7 +179,7 @@ public class CartItemServiceTest {
     }
 
     @Test
-    public void changeQuantity() {
+    void changeQuantity() {
         //given
         var cartItemId = 2L;
         var newQuantity = new BigDecimal(5);
@@ -192,7 +192,7 @@ public class CartItemServiceTest {
     }
 
     @Test
-    public void deleteById() {
+    void deleteById() {
         //given
         var cartItemId = 2L;
 
@@ -204,7 +204,7 @@ public class CartItemServiceTest {
     }
 
     @Test
-    public void deleteAllByCartId() {
+    void deleteAllByCartId() {
         //given
         var cartId = 2L;
 

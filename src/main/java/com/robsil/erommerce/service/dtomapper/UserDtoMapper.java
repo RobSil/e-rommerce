@@ -1,16 +1,10 @@
-package com.robsil.erommerce.service.dtoMapper;
+package com.robsil.erommerce.service.dtomapper;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.robsil.erommerce.data.domain.User;
-import com.robsil.erommerce.model.ERole;
-import com.robsil.erommerce.model.Gender;
 import com.robsil.erommerce.model.user.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Function;
 
 @Service

@@ -5,6 +5,8 @@ import java.util.function.Supplier;
 
 public class ThrowableUtil {
 
+    private ThrowableUtil() {}
+
     public static <T> Optional<T> ofThrowable(Supplier<T> supplier) {
         try {
             return Optional.ofNullable(supplier.get());

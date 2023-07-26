@@ -1,7 +1,7 @@
-package com.robsil.erommerce.service.dtoMapper;
+package com.robsil.erommerce.service.dtomapper;
 
 import com.robsil.erommerce.data.domain.CartItem;
-import com.robsil.erommerce.model.cartItem.CartItemDto;
+import com.robsil.erommerce.model.cartitem.CartItemDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

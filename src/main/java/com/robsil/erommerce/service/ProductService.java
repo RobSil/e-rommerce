@@ -2,14 +2,12 @@ package com.robsil.erommerce.service;
 
 import com.robsil.erommerce.data.domain.Category;
 import com.robsil.erommerce.data.domain.Product;
-import com.robsil.erommerce.model.product.ProductCheckSkuResponse;
 import com.robsil.erommerce.model.product.ProductCreateRequest;
 import com.robsil.erommerce.model.product.ProductSaveRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public interface ProductService {
 

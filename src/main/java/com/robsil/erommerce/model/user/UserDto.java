@@ -3,9 +3,6 @@ package com.robsil.erommerce.model.user;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.robsil.erommerce.model.ERole;
 import com.robsil.erommerce.model.Gender;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.*;
 
 import java.time.LocalDateTime;

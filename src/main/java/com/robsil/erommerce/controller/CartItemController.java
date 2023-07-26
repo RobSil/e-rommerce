@@ -1,12 +1,12 @@
 package com.robsil.erommerce.controller;
 
 import com.robsil.erommerce.data.domain.User;
-import com.robsil.erommerce.model.cartItem.CartItemChangeQuantityRequest;
-import com.robsil.erommerce.model.cartItem.CartItemCreateRequest;
-import com.robsil.erommerce.model.cartItem.CartItemDto;
-import com.robsil.erommerce.model.cartItem.CartItemQuantityChangeResponse;
+import com.robsil.erommerce.model.cartitem.CartItemChangeQuantityRequest;
+import com.robsil.erommerce.model.cartitem.CartItemCreateRequest;
+import com.robsil.erommerce.model.cartitem.CartItemDto;
+import com.robsil.erommerce.model.cartitem.CartItemQuantityChangeResponse;
 import com.robsil.erommerce.service.CartService;
-import com.robsil.erommerce.service.dtoMapper.CartItemDtoMapper;
+import com.robsil.erommerce.service.dtomapper.CartItemDtoMapper;
 import com.robsil.erommerce.service.facade.CartFacadeService;
 import com.robsil.erommerce.service.facade.CartItemFacadeService;
 import jakarta.validation.Valid;

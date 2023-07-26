@@ -1,22 +1,18 @@
 package com.robsil.erommerce.service.facade;
 
-import com.robsil.erommerce.data.domain.CartItem;
 import com.robsil.erommerce.data.domain.User;
 import com.robsil.erommerce.model.cart.CartDto;
 import com.robsil.erommerce.model.cart.DetailedCartDto;
-import com.robsil.erommerce.model.cartItem.CartItemCreateRequest;
-import com.robsil.erommerce.model.cartItem.MinimizedCartItemDto;
+import com.robsil.erommerce.model.cartitem.MinimizedCartItemDto;
 import com.robsil.erommerce.service.CartItemService;
 import com.robsil.erommerce.service.CartService;
 import com.robsil.erommerce.service.ProductService;
-import com.robsil.erommerce.service.dtoMapper.ProductDtoMapper;
-import com.robsil.erommerce.service.dtoMapper.UserDtoMapper;
+import com.robsil.erommerce.service.dtomapper.ProductDtoMapper;
+import com.robsil.erommerce.service.dtomapper.UserDtoMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -41,7 +37,7 @@ public class CartFacadeService {
                                 cartItem.getProduct()),
                                 cartItem.getQuantity(),
                                 cartItem.getPrice()))
-                        .collect(Collectors.toList()))
+                        .toList())
                 .build();
     }
 

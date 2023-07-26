@@ -34,7 +34,7 @@ public class CategoryServiceTest {
 
     @Test
     @DisplayName("Find by id")
-    public void findById() {
+    void findById() {
         //given
         Long id = 1L;
         Category category = new Category(null, "category1");
@@ -51,7 +51,7 @@ public class CategoryServiceTest {
 
     @Test
     @DisplayName("Find by id not found")
-    public void findByIdNotFound() {
+    void findByIdNotFound() {
         //given
         Long id = 1L;
 
@@ -63,14 +63,14 @@ public class CategoryServiceTest {
 
         EntityNotFoundException e = assertThrows(EntityNotFoundException.class, () -> underTest.findById(id));
 
-        assertEquals(e.getMessage(), "Category not found");
+        assertEquals("Category not found", e.getMessage());
 
 
     }
 
     @Test
     @DisplayName("find all roots")
-    public void findAllRoots() {
+    void findAllRoots() {
         //given
         Category category1 = Category.builder()
                 .id(1L)

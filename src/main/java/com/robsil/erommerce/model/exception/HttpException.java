@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 public abstract class HttpException extends RuntimeException {
 
-    private Long timestamp = System.currentTimeMillis();
+    private final Long timestamp = System.currentTimeMillis();
 
     private int status;
 
