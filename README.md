@@ -5,6 +5,8 @@ This "e-commerce" should carry out next requirements:
  - inventory/warehouse management
  - goods management
 
+### current implementation is pretty basic, more advanced in [e-rommerce-microservices](https://github.com/RobSil/e-rommerce-microservices)
+
 [//]: # ( - direct chat client with support?)
 
 Just some current tech doc:
